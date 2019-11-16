@@ -19,5 +19,20 @@ window.onload = function() {
     http.send();
   });
   
+    btn2.addEventListener("click", function() {
+    let searchValue = document.getElementById("country").value;
+
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        result.innerHTML = this.responseText;
+      }
+    };
+
+    http.open("GET", "world.php?country=&context=" + searchValue, true);
+    http.send();
+  });
+  
 
 };
