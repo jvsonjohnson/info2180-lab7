@@ -1,5 +1,6 @@
 window.onload = function() {
   var btn = document.getElementById("lookup");
+  var btn2 = document.getElementById("lookup2");
   var result = document.getElementById("result");
 
 
@@ -14,7 +15,9 @@ window.onload = function() {
       }
     };
 
-    http.open("GET", "world.php?query=" + searchValue, true);
+    http.open("GET", "world.php?country=" + searchValue, true);
     http.send();
   });
+  
+
 };

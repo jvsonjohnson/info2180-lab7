@@ -4,12 +4,16 @@ $username = 'jasejay09';
 $password = 'jasejay09!';
 $dbname = 'world';
 
-$country =$_GET['query'];
+$country =$_GET['country'];
+
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
+$stmt2 = $conn->query("SELECT * FROM cities WHERE name LIKE '%$country%'");
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 ?>
@@ -35,4 +39,22 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tbody>
 </table>
 
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>District</th>
+            <th>Population</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($cities as $city): ?>
+        <tr>
+            <td><?= $city['name']; ?></td>
+            <td><?= $city['district']; ?></td>
+            <td><?= $city['population']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
