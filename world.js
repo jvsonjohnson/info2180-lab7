@@ -30,7 +30,7 @@ window.onload = function() {
       }
     };
 
-    http.open("GET", "world.php?country=&context=" + searchValue, true);
+    http.open("GET", "world.php?country=&context=cities" + searchValue, true);
     http.send();
   });
   

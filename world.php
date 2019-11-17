@@ -5,19 +5,17 @@ $password = 'jasejay09!';
 $dbname = 'world';
 
 $country =$_GET['country'];
-
+$context = $_GET['context'];
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
-$stmt2 = $conn->query("SELECT * FROM cities WHERE name LIKE '%$country%'");
-
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
 
 
 ?>
-
+<?php if ($context != cities) : ?>
+<?php 
+$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'"); 
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <table>
     <thead>
         <tr>
@@ -39,6 +37,11 @@ $cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     </tbody>
 </table>
 
+<?php else : ?>
+<?php
+$stmt2 = $conn->query("SELECT * FROM cities JOIN countries WHERE name LIKE '%$country%'");
+$cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+?>
 <table>
     <thead>
         <tr>
@@ -57,4 +60,4 @@ $cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </tbody>
 </table>
-
+<?php endif; ?>
