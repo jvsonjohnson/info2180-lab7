@@ -7,12 +7,11 @@ $dbname = 'world';
 $country =$_GET['country'];
 $context = $_GET['context'];
 
-$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-
 
 ?>
 <?php if ($context != cities) : ?>
 <?php 
+$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'"); 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -39,7 +38,8 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php else : ?>
 <?php
-$stmt2 = $conn->query("SELECT * FROM cities JOIN countries WHERE name LIKE '%$country%'");
+$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+$stmt2 = $conn->query("SELECT * FROM cities cit JOIN countries c on cit.country_code = c.code WHERE name LIKE '%$country%' ");
 $cities = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <table>
